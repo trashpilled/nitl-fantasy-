@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html, body, #root {
+  height: 100%;
+  background: #ffffff;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #1a1a1a;
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Override Tailwind's default heavy weights — system feels lighter */
+h1, h2, h3, h4 {
+  font-weight: 500;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* Vintage card frame used on Player Profile */
+.vintage-card {
+  background: #f4ecd8;
+  border: 4px solid #1a1a1a;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+}
+
+.serif {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.label-caps {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 10px;
+  color: #666;
+  font-weight: 500;
+}
+
+.label-caps-sm {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 11px;
+  color: #666;
+  font-weight: 500;
+}
+
+.divider {
+  height: 1px;
+  background: #e5e5e5;
+}
+
+.tab-active {
+  border-bottom: 3px solid #047a3b;
+  color: #ffffff;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/* Diagonal flag clip for player profile hero */
+.flag-clip {
+  clip-path: polygon(0 0, 78% 0, 52% 100%, 0 100%);
+}
+
+/* Subtle hover for table rows */
+.row-hover:hover {
+  background: #fafafa;
+}
+
+/* Gold dollar callouts */
+.gold-money {
+  color: #f4a300;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 500;
+}
+
+/* Live indicator pulse */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.live-dot {
+  animation: pulse-dot 1.4s ease-in-out infinite;
+}
+
+/* Number input — remove arrows for cleaner sportsbook feel */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Custom scrollbar for player switcher list */
+.thin-scroll::-webkit-scrollbar { width: 6px; }
+.thin-scroll::-webkit-scrollbar-thumb { background: #d4d4d4; border-radius: 3px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
