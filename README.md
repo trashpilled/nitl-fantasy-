@@ -1,22 +1,24 @@
-# NITL · Not Insider Trading League
+# Not Insider Trading League (NITL)
 
-A satirical fantasy-sports UI prototype where rostered "players" are US Senators
-and Representatives. Scoring is based on publicly disclosed stock trades, PAC
-contributions, and committee-jurisdiction multipliers. None of the data is real.
-None of the activity depicted is illegal — that's sort of the point.
+A satirical fantasy-sports UI prototype where rostered "players" are US
+Senators and Representatives, and scoring is driven by publicly disclosed
+stock trades, PAC contributions, and committee-jurisdiction multipliers. The
+visual language borrows from ESPN Fantasy (dense tables, green primary, clean
+white surfaces) with vintage Topps baseball-card flourishes on the player
+profile hero. There is no backend — every data point lives in `/src/data` as
+typed mock data.
 
-This is a clickable demo. There is no backend, no authentication, no real-time
-data, and no live league management. Everything you see is hardcoded mock data
-in `/src/data`.
+Satirical project. All disclosure data is illustrative and publicly
+available. No claims of illegality are made.
 
-## Run
+## Setup
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open the local URL Vite prints (usually `http://localhost:5173`).
+Open the URL Vite prints (default `http://localhost:5173`).
 
 ## Build
 
@@ -27,46 +29,39 @@ npm run preview
 
 The build output is a static SPA in `dist/` — drop it on any static host.
 
-## Project structure
+## Routes
 
-```
-src/
-  components/     Shared NavBar, Footer, Avatar, Badge, LegislatorRow, StatCard
-  pages/          One file per route — Dashboard, Matchup, Roster, etc.
-  data/           Mock data: legislators, teams, trades, propLines, weeklyScores
-  context/        RosterContext — localStorage-backed Team Builder state
-  styles/         Tailwind + a handful of bespoke classes (.vintage-card etc.)
-  App.tsx         BrowserRouter + RosterProvider shell
-  main.tsx        React entry
-```
+| Route             | What it is                                       |
+| ----------------- | ------------------------------------------------ |
+| `/`               | League dashboard with this-week matchup preview  |
+| `/matchup`        | Weekly box score                                 |
+| `/roster`         | Starters + bench + IR                            |
+| `/player/:id`     | ESPN-style player profile with vintage card hero |
+| `/standings`      | Two-caucus standings with league $ take banner   |
+| `/sportsbook`     | The House Cut · passive pool + active props      |
+| `/rankings`       | Draft Big Board with tier breakdown              |
+| `/draft`          | Team Builder — pick 12 legislators               |
+| `/my-season`      | Simulated 2025 recap of your drafted roster      |
 
-## What's stateful
+## Stateful flow
 
-Only one flow is meaningfully stateful: **Team Builder**.
-
-- `/draft` lets you assemble a 12-legislator mock roster from the pool of 24.
-- The selection persists in `localStorage` under `nitl:user-roster:v1`.
-- Once saved, `/my-season` becomes available — it simulates the user's roster
-  against the pre-defined weekly scores of the other 11 mock teams, computes
-  a W-L record, ranks against the league, and surfaces MVP / Bust callouts.
-- Resetting from the My Season page clears localStorage and returns you to
-  `/draft`.
-
-Everything else (Matchup, Roster, Standings, Sportsbook, Rankings, Player
-Profile) is read-only mock data.
+Only one part of the prototype is meaningfully stateful: **Team Builder**.
+`/draft` lets you assemble a 12-legislator roster, validates positional
+requirements, and persists to `localStorage` under `nitl:user-roster:v1`.
+`/my-season` then simulates your roster against the 11 other mock teams'
+pre-set weekly scores and surfaces W-L record, league rank, MVP/Bust tags,
+and a week-by-week table.
 
 ## Photos & flags
 
-- Legislator headshots come from the public domain
-  [`unitedstates/images`](https://github.com/unitedstates/images) repo via:
+- Legislator headshots: public-domain images from
+  [`unitedstates/images`](https://github.com/unitedstates/images) via
   `https://unitedstates.github.io/images/congress/225x275/{BIOGUIDE_ID}.jpg`.
-  Each `Legislator` carries a `bioguideId` field. The `Avatar` component
-  attempts to load the photo, and on `onerror` falls back to a party-colored
-  initials circle.
-- State flags use Wikimedia's `Special:FilePath` redirect so any state name
-  resolves without needing a hash prefix.
+  The `Avatar` component falls back to a party-colored initials circle on
+  image load failure.
+- State flags: Wikimedia's `Special:FilePath` redirect, so any state name
+  resolves without a hash prefix.
 
-## Disclaimer
+## Deployment
 
-All disclosure data is illustrative. Not affiliated with the SEC, FEC, or any
-federal agency. None of this activity is illegal — that's sort of the point.
+Deployed via Cloudflare Pages. Push to `main` triggers automatic redeploy.
